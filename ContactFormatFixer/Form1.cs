@@ -80,7 +80,9 @@ namespace ContactFormatFixer
             {
                 ShowMessage("Oops, something went wrong!\r\n~debug info~\r\n" + ex.Message + "\r\nPlease try another input file.");
             }
+
             List<string> originalLines = File.ReadAllLines(originalFile).ToList();
+
             foreach (string fileLine in originalLines)
             {
                 List<string> lineItems = fileLine.Split(',').ToList();
@@ -90,14 +92,20 @@ namespace ContactFormatFixer
                 }
                 originalList.Add(lineItems);
             }
-            foreach (string item in listItems)
-            {
-                System.Console.Out.WriteLine(item.ToString());
-            }
+
+            //foreach (string item in listItems)
+            //{
+            //    System.Console.Out.WriteLine(item.ToString());
+            //}
+
             foreach (List<string> item in originalList)
             {
-                System.Console.Out.WriteLine(item.ToString());
+                foreach (string stringItem in item)
+                {
+                    System.Console.Out.WriteLine(stringItem.ToString());
+                }
             }
+
             ShowMessage("File Fixed Successfully!");
         }
     }
