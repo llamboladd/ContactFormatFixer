@@ -20,6 +20,8 @@ namespace ContactFormatFixer
 
         public string originalFile = "";
         public string newFile = "";
+        public List<List<string>> originalList = new List<List<string>>();
+        public List<string> listItems = new List<string>();
 
         public void ShowMessage(String messageText)
         {
@@ -70,7 +72,33 @@ namespace ContactFormatFixer
 
         private void btnFix_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                File.ReadAllLines(originalFile).ToList();
+            }
+            catch (Exception ex)
+            {
+                ShowMessage("Oops, something went wrong!\r\n~debug info~\r\n" + ex.Message + "\r\nPlease try another input file.");
+            }
+            List<string> originalLines = File.ReadAllLines(originalFile).ToList();
+            foreach (string fileLine in originalLines)
+            {
+                List<string> lineItems = fileLine.Split(',').ToList();
+                foreach (string item in lineItems)
+                {
+                    listItems.Add(item);
+                }
+                originalList.Add(lineItems);
+            }
+            foreach (string item in listItems)
+            {
+                System.Console.Out.WriteLine(item.ToString());
+            }
+            foreach (List<string> item in originalList)
+            {
+                System.Console.Out.WriteLine(item.ToString());
+            }
+            ShowMessage("File Fixed Successfully!");
         }
     }
 }
