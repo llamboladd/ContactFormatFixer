@@ -20,6 +20,8 @@ namespace ContactFormatFixer
 
         public class inputLine
         {
+            //  The format of the input is as such:
+            //  First Name, Last Name, 
 
         }
 
