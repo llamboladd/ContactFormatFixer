@@ -91,9 +91,6 @@ namespace ContactFormatFixer
         }
 
 
-        
-
-
         public class outputLine
         {
 
@@ -180,6 +177,70 @@ namespace ContactFormatFixer
                 inputLine newLine = new inputLine(this);
                 return newLine;
             }
+
+            internal void fromList(List<outputLine> lineItems)
+            {
+                outputLine newLine = new outputLine();
+                newLine.Name = lineItems[0].ToString();
+                newLine.GivenName = lineItems[1].ToString();
+                newLine.AdditionalName = lineItems[2].ToString();
+                newLine.FamilyName = lineItems[3].ToString();
+                newLine.YomiName = lineItems[4].ToString();
+                newLine.GivenNameYomi = lineItems[5].ToString();
+                newLine.AdditionalNameYomi = lineItems[6].ToString();
+                newLine.FamilyNameYomi = lineItems[7].ToString();
+                newLine.NamePrefix = lineItems[8].ToString();
+                newLine.NameSuffix = lineItems[9].ToString();
+                newLine.Initials = lineItems[10].ToString();
+                newLine.Nickname = lineItems[11].ToString();
+                newLine.ShortName = lineItems[12].ToString();
+                newLine.MaidenName = lineItems[13].ToString();
+                newLine.Birthday = lineItems[14].ToString();
+                newLine.Gender = lineItems[15].ToString();
+                newLine.Location = lineItems[16].ToString();
+                newLine.BillingInformation = lineItems[17].ToString();
+                newLine.DirectoryServer = lineItems[18].ToString();
+                newLine.Mileage = lineItems[19].ToString();
+                newLine.Occupation = lineItems[20].ToString();
+                newLine.Hobby = lineItems[21].ToString();
+                newLine.Sensitivity = lineItems[22].ToString();
+                newLine.Priority = lineItems[23].ToString();
+                newLine.Subject = lineItems[24].ToString();
+                newLine.Notes = lineItems[25].ToString();
+                newLine.GroupMembership = lineItems[26].ToString();
+                newLine.Email1Type = lineItems[27].ToString();
+                newLine.Email1Value = lineItems[28].ToString();
+                newLine.Email2Type = lineItems[29].ToString();
+                newLine.Email2Value = lineItems[30].ToString();
+                newLine.IM1Type = lineItems[31].ToString();
+                newLine.IM1Service = lineItems[32].ToString();
+                newLine.IM1Value = lineItems[33].ToString();
+                newLine.Phone1Type = lineItems[34].ToString();
+                newLine.Phone1Value = lineItems[35].ToString();
+                newLine.Phone2Type = lineItems[35].ToString();
+                newLine.Phone2Value = lineItems[36].ToString();
+                newLine.Phone3Type = lineItems[37].ToString();
+                newLine.Phone3Value = lineItems[38].ToString();
+                newLine.Address1Type = lineItems[39].ToString();
+                newLine.Address1Formatted = lineItems[40].ToString();
+                newLine.Address1Street = lineItems[41].ToString();
+                newLine.Address1City = lineItems[42].ToString();
+                newLine.Address1POBox = lineItems[43].ToString();
+                newLine.Address1Region = lineItems[44].ToString();
+                newLine.Address1PostalCode = lineItems[45].ToString();
+                newLine.Address1Country = lineItems[46].ToString();
+                newLine.Address1ExtendedAddress = lineItems[47].ToString();
+                newLine.Organization1Type = lineItems[48].ToString();
+                newLine.Organization1Name = lineItems[49].ToString();
+                newLine.Organization1YomiName = lineItems[50].ToString();
+                newLine.Organization1Title = lineItems[51].ToString();
+                newLine.Organization1Department = lineItems[52].ToString();
+                newLine.Organization1Symbol = lineItems[53].ToString();
+                newLine.Organization1Location = lineItems[54].ToString();
+                newLine.Organization1JobDescription = lineItems[55].ToString();
+                newLine.Website1Type = lineItems[56].ToString();
+                newLine.Website1Value = lineItems[57].ToString();
+            }
         }
 
         public string originalFile = "";
@@ -256,7 +317,7 @@ namespace ContactFormatFixer
 
             foreach (inputLine lineItem in listItems)
             {
-                System.Console.Out.WriteLine(lineItem.ToString());
+                Console.Out.WriteLine(lineItem.ToString());
             }
 
             ShowMessage("File Fixed Successfully!");
