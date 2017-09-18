@@ -119,7 +119,7 @@
             // saveFileDialog1
             // 
             this.saveFileDialog1.CreatePrompt = true;
-            this.saveFileDialog1.DefaultExt = "CSV";
+            this.saveFileDialog1.DefaultExt = "csv";
             this.saveFileDialog1.FileName = "newFile.csv";
             this.saveFileDialog1.Filter = "csv file|*.csv|CSV file|*.CSV";
             this.saveFileDialog1.Title = "Pick a folder to leave the fixed file in...";
@@ -159,7 +159,7 @@
         private System.Windows.Forms.Button btnPickNewFolder;
         private System.Windows.Forms.Button btnFix;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        public System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

@@ -19,48 +19,121 @@ namespace ContactFormatFixer
             InitializeComponent();
         }
 
+        public enum inputColumn : int
+        {
+            lastName,
+            firstName,
+            streetAddress,
+            phoneNumber,
+            emailAddress
+        };
+
+        public enum outputColumn : int
+        {
+            Name,
+            GivenName,
+            AdditionalName,
+            FamilyName,
+            YomiName,
+            GivenNameYomi,
+            AdditionalNameYomi,
+            FamilyNameYomi,
+            NamePrefix,
+            NameSuffix,
+            Initials,
+            Nickname,
+            ShortName,
+            MaidenName,
+            Birthday,
+            Gender,
+            Location,
+            BillingInformation,
+            DirectoryServer,
+            Mileage,
+            Occupation,
+            Hobby,
+            Sensitivity,
+            Priority,
+            Subject,
+            Notes,
+            GroupMembership,
+            Email1Type,
+            Email1Value,
+            Email2Type,
+            Email2Value,
+            IM1Type,
+            IM1Service,
+            IM1Value,
+            Phone1Type,
+            Phone1Value,
+            Phone2Type,
+            Phone2Value,
+            Phone3Type,
+            Phone3Value,
+            Address1Type,
+            Address1Formatted,
+            Address1Street,
+            Address1City,
+            Address1POBox,
+            Address1Region,
+            Address1PostalCode,
+            Address1Country,
+            Address1ExtendedAddress,
+            Organization1Type,
+            Organization1Name,
+            Organization1YomiName,
+            Organization1Title,
+            Organization1Department,
+            Organization1Symbol,
+            Organization1Location,
+            Organization1JobDescription,
+            Website1Type,
+            Website1Value
+        }
+
+        [Serializable]
         public class inputLine
         {
 
             //  The format of the input is as such:
             //  First Name, Last Name, Family Name, Email Address, Phone Number
 
-            public string firstName { get; set; }
             public string lastName { get; set; }
-            public string familyName { get; set; }
-            public string emailAddress { get; set; }
+            public string firstName { get; set; }
+            public string streetAddress { get; set; }
             public string phoneNumber { get; set; }
+            public string emailAddress { get; set; }
 
             public inputLine()
             {
-                this.firstName = "";
                 this.lastName = "";
-                this.familyName = "";
-                this.emailAddress = "bugmenot@bugmenot.com";
+                this.firstName = "";
+                this.streetAddress = "";
                 this.phoneNumber = "";
+                this.emailAddress = "bugmenot@bugmenot.com";
             }
 
-            public inputLine(string firstName, string lastName, string familyName, string emailAddress, string phoneNumber)
+            public inputLine(string lastName, string firstName, string streetAddress, string phoneNumber, string emailAddress)
             {
-                this.firstName = firstName;
                 this.lastName = lastName;
-                this.familyName = familyName;
-                this.emailAddress = emailAddress;
+                this.firstName = firstName;
+                this.streetAddress = streetAddress;
                 this.phoneNumber = phoneNumber;
+                this.emailAddress = emailAddress;
             }
 
             public override string ToString()
             {
-                return (this.firstName + "\t" + this.lastName + "\t" + this.familyName + "\t" + this.emailAddress + "\t" + this.phoneNumber);
+                return (this.lastName + "\t" + this.firstName + "\t" + this.streetAddress + "\t" + this.phoneNumber + "\t" + this.emailAddress);
             }
 
             public inputLine(outputLine outputLine)
             {
-                this.firstName = outputLine.GivenName;
                 this.lastName = outputLine.FamilyName;
-                this.familyName = outputLine.FamilyName;
-                this.emailAddress = outputLine.Email1Value;
+                this.firstName = outputLine.GivenName;
+                this.streetAddress = outputLine.Address1Street;
                 this.phoneNumber = outputLine.Phone1Value;
+                this.emailAddress = outputLine.Email1Value;
             }
 
             public outputLine toOutputLine()
@@ -72,30 +145,31 @@ namespace ContactFormatFixer
             public List<string> toList()
             {
                 List<string> newList = new List<string>();
-                newList.Add(this.firstName);
                 newList.Add(this.lastName);
-                newList.Add(this.familyName);
-                newList.Add(this.emailAddress);
+                newList.Add(this.firstName);
+                newList.Add(this.streetAddress);
                 newList.Add(this.phoneNumber);
+                newList.Add(this.emailAddress);
                 return newList;
             }
 
-            internal void fromList(List<string> lineItems)
+            public inputLine fromList(List<string> lineItems)
             {
-                this.firstName = lineItems.ElementAt(0);
-                this.lastName = lineItems.ElementAt(1);
-                this.familyName = lineItems.ElementAt(2);
-                this.emailAddress = lineItems.ElementAt(3);
-                this.phoneNumber = lineItems.ElementAt(4);
+                this.lastName = lineItems.ElementAt(0);
+                this.firstName = lineItems.ElementAt(1);
+                this.streetAddress = lineItems.ElementAt(2);
+                this.phoneNumber = lineItems.ElementAt(3);
+                this.emailAddress = lineItems.ElementAt(4);
+                return this;
             }
         }
 
-
+        [Serializable]
         public class outputLine
         {
-
             //  The format of the output is as such:
             //  Name, Given Name, Additional Name, Family Name, Yomi Name, Given Name Yomi, Additional Name Yomi, Family Name Yomi, Name Prefix, Name Suffix, Initials, Nickname, Short Name, Maiden Name, Birthday, Gender, Location, Billing Information, Directory Server, Mileage, Occupation, Hobby, Sensitivity, Priority, Subject, Notes, Group Membership, E-mail 1 - Type, E-mail 1 - Value, E-mail 2 - Type, E-mail 2 - Value, IM 1 - Type, IM 1 - Service, IM 1 - Value, Phone 1 - Type, Phone 1 - Value, Phone 2 - Type, Phone 2 - Value, Phone 3 - Type, Phone 3 - Value, Address 1 - Type, Address 1 - Formatted, Address 1 - Street, Address 1 - City, Address 1 - PO Box, Address 1 - Region, Address 1 - Postal Code, Address 1 - Country, Address 1 - Extended Address, Organization 1 - Type, Organization 1 - Name, Organization 1 - Yomi Name, Organization 1 - Title, Organization 1 - Department, Organization 1 - Symbol, Organization 1 - Location, Organization 1 - Job Description, Website 1 - Type, Website 1 - Value
+            //  That's right, 60 separate items just to import into a f***ing contact list...
 
             public string Name { get; set; }
             public string GivenName { get; set; }
@@ -163,13 +237,18 @@ namespace ContactFormatFixer
                 this.Name = this.GivenName = this.AdditionalName = this.FamilyName = this.YomiName = this.GivenNameYomi = this.AdditionalNameYomi = this.FamilyNameYomi = this.NamePrefix = this.NameSuffix = this.Initials = this.Nickname = this.ShortName = this.MaidenName = this.Birthday = this.Gender = this.Location = this.BillingInformation = this.DirectoryServer = this.Mileage = this.Occupation = this.Hobby = this.Sensitivity = this.Priority = this.Subject = this.Notes = this.GroupMembership = this.Email1Type = this.Email1Value = this.Email2Type = this.Email2Value = this.IM1Type = this.IM1Service = this.IM1Value = this.Phone1Type = this.Phone1Value = this.Phone2Type = this.Phone2Value = this.Phone3Type = this.Phone3Value = this.Address1Type = this.Address1Formatted = this.Address1Street = this.Address1City = this.Address1POBox = this.Address1Region = this.Address1PostalCode = this.Address1Country = this.Address1ExtendedAddress = this.Organization1Type = this.Organization1Name = this.Organization1YomiName = this.Organization1Title = this.Organization1Department = this.Organization1Symbol = this.Organization1Location = this.Organization1JobDescription = this.Website1Type = this.Website1Value = "";
             }
 
+            public override string ToString()
+            {
+                return this.Name + "\t" + this.GivenName + "\t" + this.AdditionalName + "\t" + this.FamilyName + "\t" + this.YomiName + "\t" + this.GivenNameYomi + "\t" + this.AdditionalNameYomi + "\t" + this.FamilyNameYomi + "\t" + this.NamePrefix + "\t" + this.NameSuffix + "\t" + this.Initials + "\t" + this.Nickname + "\t" + this.ShortName + "\t" + this.MaidenName + "\t" + this.Birthday + "\t" + this.Gender + "\t" + this.Location + "\t" + this.BillingInformation + "\t" + this.DirectoryServer + "\t" + this.Mileage + "\t" + this.Occupation + "\t" + this.Hobby + "\t" + this.Sensitivity + "\t" + this.Priority + "\t" + this.Subject + "\t" + this.Notes + "\t" + this.GroupMembership + "\t" + this.Email1Type + "\t" + this.Email1Value + "\t" + this.Email2Type + "\t" + this.Email2Value + "\t" + this.IM1Type + "\t" + this.IM1Service + "\t" + this.IM1Value + "\t" + this.Phone1Type + "\t" + this.Phone1Value + "\t" + this.Phone2Type + "\t" + this.Phone2Value + "\t" + this.Phone3Type + "\t" + this.Phone3Value + "\t" + this.Address1Type + "\t" + this.Address1Formatted + "\t" + this.Address1Street + "\t" + this.Address1City + "\t" + this.Address1POBox + "\t" + this.Address1Region + "\t" + this.Address1PostalCode + "\t" + this.Address1Country + "\t" + this.Address1ExtendedAddress + "\t" + this.Organization1Type + "\t" + this.Organization1Name + "\t" + this.Organization1YomiName + "\t" + this.Organization1Title + "\t" + this.Organization1Department + "\t" + this.Organization1Symbol + "\t" + this.Organization1Location + "\t" + this.Organization1JobDescription + "\t" + this.Website1Type + "\t" + this.Website1Value;
+            }
+
             public outputLine(inputLine inputLine)
             {
                 this.Name = inputLine.firstName + " " + inputLine.lastName;
                 this.GivenName = inputLine.firstName;
-                this.FamilyName = inputLine.familyName;
-                this.Email1Value = inputLine.emailAddress;
+                this.Address1Street = inputLine.streetAddress;
                 this.Phone1Value = inputLine.phoneNumber;
+                this.Email1Value = inputLine.emailAddress;
             }
 
             public inputLine toInputLine()
@@ -178,68 +257,68 @@ namespace ContactFormatFixer
                 return newLine;
             }
 
-            internal void fromList(List<outputLine> lineItems)
+            public outputLine fromList(List<outputLine> lineItems)
             {
-                outputLine newLine = new outputLine();
-                newLine.Name = lineItems[0].ToString();
-                newLine.GivenName = lineItems[1].ToString();
-                newLine.AdditionalName = lineItems[2].ToString();
-                newLine.FamilyName = lineItems[3].ToString();
-                newLine.YomiName = lineItems[4].ToString();
-                newLine.GivenNameYomi = lineItems[5].ToString();
-                newLine.AdditionalNameYomi = lineItems[6].ToString();
-                newLine.FamilyNameYomi = lineItems[7].ToString();
-                newLine.NamePrefix = lineItems[8].ToString();
-                newLine.NameSuffix = lineItems[9].ToString();
-                newLine.Initials = lineItems[10].ToString();
-                newLine.Nickname = lineItems[11].ToString();
-                newLine.ShortName = lineItems[12].ToString();
-                newLine.MaidenName = lineItems[13].ToString();
-                newLine.Birthday = lineItems[14].ToString();
-                newLine.Gender = lineItems[15].ToString();
-                newLine.Location = lineItems[16].ToString();
-                newLine.BillingInformation = lineItems[17].ToString();
-                newLine.DirectoryServer = lineItems[18].ToString();
-                newLine.Mileage = lineItems[19].ToString();
-                newLine.Occupation = lineItems[20].ToString();
-                newLine.Hobby = lineItems[21].ToString();
-                newLine.Sensitivity = lineItems[22].ToString();
-                newLine.Priority = lineItems[23].ToString();
-                newLine.Subject = lineItems[24].ToString();
-                newLine.Notes = lineItems[25].ToString();
-                newLine.GroupMembership = lineItems[26].ToString();
-                newLine.Email1Type = lineItems[27].ToString();
-                newLine.Email1Value = lineItems[28].ToString();
-                newLine.Email2Type = lineItems[29].ToString();
-                newLine.Email2Value = lineItems[30].ToString();
-                newLine.IM1Type = lineItems[31].ToString();
-                newLine.IM1Service = lineItems[32].ToString();
-                newLine.IM1Value = lineItems[33].ToString();
-                newLine.Phone1Type = lineItems[34].ToString();
-                newLine.Phone1Value = lineItems[35].ToString();
-                newLine.Phone2Type = lineItems[35].ToString();
-                newLine.Phone2Value = lineItems[36].ToString();
-                newLine.Phone3Type = lineItems[37].ToString();
-                newLine.Phone3Value = lineItems[38].ToString();
-                newLine.Address1Type = lineItems[39].ToString();
-                newLine.Address1Formatted = lineItems[40].ToString();
-                newLine.Address1Street = lineItems[41].ToString();
-                newLine.Address1City = lineItems[42].ToString();
-                newLine.Address1POBox = lineItems[43].ToString();
-                newLine.Address1Region = lineItems[44].ToString();
-                newLine.Address1PostalCode = lineItems[45].ToString();
-                newLine.Address1Country = lineItems[46].ToString();
-                newLine.Address1ExtendedAddress = lineItems[47].ToString();
-                newLine.Organization1Type = lineItems[48].ToString();
-                newLine.Organization1Name = lineItems[49].ToString();
-                newLine.Organization1YomiName = lineItems[50].ToString();
-                newLine.Organization1Title = lineItems[51].ToString();
-                newLine.Organization1Department = lineItems[52].ToString();
-                newLine.Organization1Symbol = lineItems[53].ToString();
-                newLine.Organization1Location = lineItems[54].ToString();
-                newLine.Organization1JobDescription = lineItems[55].ToString();
-                newLine.Website1Type = lineItems[56].ToString();
-                newLine.Website1Value = lineItems[57].ToString();
+                this.Name = lineItems[0].ToString();
+                this.GivenName = lineItems[1].ToString();
+                this.AdditionalName = lineItems[2].ToString();
+                this.FamilyName = lineItems[3].ToString();
+                this.YomiName = lineItems[4].ToString();
+                this.GivenNameYomi = lineItems[5].ToString();
+                this.AdditionalNameYomi = lineItems[6].ToString();
+                this.FamilyNameYomi = lineItems[7].ToString();
+                this.NamePrefix = lineItems[8].ToString();
+                this.NameSuffix = lineItems[9].ToString();
+                this.Initials = lineItems[10].ToString();
+                this.Nickname = lineItems[11].ToString();
+                this.ShortName = lineItems[12].ToString();
+                this.MaidenName = lineItems[13].ToString();
+                this.Birthday = lineItems[14].ToString();
+                this.Gender = lineItems[15].ToString();
+                this.Location = lineItems[16].ToString();
+                this.BillingInformation = lineItems[17].ToString();
+                this.DirectoryServer = lineItems[18].ToString();
+                this.Mileage = lineItems[19].ToString();
+                this.Occupation = lineItems[20].ToString();
+                this.Hobby = lineItems[21].ToString();
+                this.Sensitivity = lineItems[22].ToString();
+                this.Priority = lineItems[23].ToString();
+                this.Subject = lineItems[24].ToString();
+                this.Notes = lineItems[25].ToString();
+                this.GroupMembership = lineItems[26].ToString();
+                this.Email1Type = lineItems[27].ToString();
+                this.Email1Value = lineItems[28].ToString();
+                this.Email2Type = lineItems[29].ToString();
+                this.Email2Value = lineItems[30].ToString();
+                this.IM1Type = lineItems[31].ToString();
+                this.IM1Service = lineItems[32].ToString();
+                this.IM1Value = lineItems[33].ToString();
+                this.Phone1Type = lineItems[34].ToString();
+                this.Phone1Value = lineItems[35].ToString();
+                this.Phone2Type = lineItems[35].ToString();
+                this.Phone2Value = lineItems[36].ToString();
+                this.Phone3Type = lineItems[37].ToString();
+                this.Phone3Value = lineItems[38].ToString();
+                this.Address1Type = lineItems[39].ToString();
+                this.Address1Formatted = lineItems[40].ToString();
+                this.Address1Street = lineItems[41].ToString();
+                this.Address1City = lineItems[42].ToString();
+                this.Address1POBox = lineItems[43].ToString();
+                this.Address1Region = lineItems[44].ToString();
+                this.Address1PostalCode = lineItems[45].ToString();
+                this.Address1Country = lineItems[46].ToString();
+                this.Address1ExtendedAddress = lineItems[47].ToString();
+                this.Organization1Type = lineItems[48].ToString();
+                this.Organization1Name = lineItems[49].ToString();
+                this.Organization1YomiName = lineItems[50].ToString();
+                this.Organization1Title = lineItems[51].ToString();
+                this.Organization1Department = lineItems[52].ToString();
+                this.Organization1Symbol = lineItems[53].ToString();
+                this.Organization1Location = lineItems[54].ToString();
+                this.Organization1JobDescription = lineItems[55].ToString();
+                this.Website1Type = lineItems[56].ToString();
+                this.Website1Value = lineItems[57].ToString();
+                return this;
             }
         }
 
@@ -278,16 +357,6 @@ namespace ContactFormatFixer
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel) { return; }
             else
             {
-                try
-                {
-                    saveFileDialog1.OpenFile();
-                }
-                catch (Exception)
-                {
-                    ShowMessage("Error - Bad output file.\r\nPlease pick another file to continue!");
-                    btnPickNewFolder.PerformClick();
-                    return;
-                }
                 btnFix.Enabled = true;
                 newFile = saveFileDialog1.FileName;
                 btnFix.Focus();
@@ -315,10 +384,31 @@ namespace ContactFormatFixer
             }
 
 
+            //foreach (inputLine lineItem in listItems)
+            //{
+            //    Console.Out.WriteLine(lineItem.ToString());
+            //}
+
+            List<outputLine> outList = new List<outputLine>();
             foreach (inputLine lineItem in listItems)
             {
-                Console.Out.WriteLine(lineItem.ToString());
+                outList.Add(lineItem.toOutputLine());
             }
+
+            //foreach (outputLine outItem in outList)
+            //{
+            //    Console.Out.WriteLine(outItem.ToString());
+            //}
+
+            StringBuilder outputBuilder = new StringBuilder();
+            string[] outArray = new string[outList.Count];
+            int i = 0;
+            foreach (outputLine item in outList)
+            {
+                outArray[i++] = item.ToString().Replace('\t',',');
+            }
+
+            File.WriteAllLines(newFile, outArray);
 
             ShowMessage("File Fixed Successfully!");
         }
