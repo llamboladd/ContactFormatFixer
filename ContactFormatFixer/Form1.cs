@@ -412,5 +412,21 @@ namespace ContactFormatFixer
 
             ShowMessage("File Fixed Successfully!");
         }
+
+        private void btnHelp_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(btnHelp, "Need help?\r\nClick here!");
+            toolTip1.Show("Need help?\r\nClick here!", btnHelp);
+        }
+
+        private void btnHelp_MouseLeave(object sender, EventArgs e)
+        {
+            toolTip1.Hide(btnHelp);
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
