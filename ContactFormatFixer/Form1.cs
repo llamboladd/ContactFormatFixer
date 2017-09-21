@@ -96,8 +96,7 @@ namespace ContactFormatFixer
         {
 
             //  The format of the input is as such:
-            //  First Name, Last Name, Family Name, Email Address, Phone Number
-
+            //  Last Name, First Name, Street Address, Phone Number, Email Address
             public string lastName { get; set; }
             public string firstName { get; set; }
             public string streetAddress { get; set; }
@@ -110,7 +109,7 @@ namespace ContactFormatFixer
                 this.firstName = "";
                 this.streetAddress = "";
                 this.phoneNumber = "";
-                this.emailAddress = "bugmenot@bugmenot.com";
+                this.emailAddress = "";
             }
 
             public inputLine(string lastName, string firstName, string streetAddress, string phoneNumber, string emailAddress)
@@ -169,7 +168,7 @@ namespace ContactFormatFixer
         {
             //  The format of the output is as such:
             //  Name, Given Name, Additional Name, Family Name, Yomi Name, Given Name Yomi, Additional Name Yomi, Family Name Yomi, Name Prefix, Name Suffix, Initials, Nickname, Short Name, Maiden Name, Birthday, Gender, Location, Billing Information, Directory Server, Mileage, Occupation, Hobby, Sensitivity, Priority, Subject, Notes, Group Membership, E-mail 1 - Type, E-mail 1 - Value, E-mail 2 - Type, E-mail 2 - Value, IM 1 - Type, IM 1 - Service, IM 1 - Value, Phone 1 - Type, Phone 1 - Value, Phone 2 - Type, Phone 2 - Value, Phone 3 - Type, Phone 3 - Value, Address 1 - Type, Address 1 - Formatted, Address 1 - Street, Address 1 - City, Address 1 - PO Box, Address 1 - Region, Address 1 - Postal Code, Address 1 - Country, Address 1 - Extended Address, Organization 1 - Type, Organization 1 - Name, Organization 1 - Yomi Name, Organization 1 - Title, Organization 1 - Department, Organization 1 - Symbol, Organization 1 - Location, Organization 1 - Job Description, Website 1 - Type, Website 1 - Value
-            //  That's right, 60 separate items just to import into a f***ing contact list...
+            //  That's right, 58 separate items just to import into a f***ing contact list...
 
             public string Name { get; set; }
             public string GivenName { get; set; }
@@ -383,22 +382,11 @@ namespace ContactFormatFixer
                 listItems.Add(newLine);
             }
 
-
-            //foreach (inputLine lineItem in listItems)
-            //{
-            //    Console.Out.WriteLine(lineItem.ToString());
-            //}
-
             List<outputLine> outList = new List<outputLine>();
             foreach (inputLine lineItem in listItems)
             {
                 outList.Add(lineItem.toOutputLine());
             }
-
-            //foreach (outputLine outItem in outList)
-            //{
-            //    Console.Out.WriteLine(outItem.ToString());
-            //}
 
             StringBuilder outputBuilder = new StringBuilder();
             string[] outArray = new string[outList.Count];
