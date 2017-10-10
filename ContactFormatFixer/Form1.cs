@@ -19,7 +19,8 @@ namespace ContactFormatFixer
             InitializeComponent();
         }
 
-        public enum inputColumn : int
+        [Serializable]
+        private enum inputColumn : int
         {
             lastName,
             firstName,
@@ -28,7 +29,8 @@ namespace ContactFormatFixer
             emailAddress
         };
 
-        public enum outputColumn : int
+        [Serializable]
+        private enum outputColumn : int
         {
             Name,
             GivenName,
@@ -237,6 +239,50 @@ namespace ContactFormatFixer
                 this.Name = this.GivenName = this.AdditionalName = this.FamilyName = this.YomiName = this.GivenNameYomi = this.AdditionalNameYomi = this.FamilyNameYomi = this.NamePrefix = this.NameSuffix = this.Initials = this.Nickname = this.ShortName = this.MaidenName = this.Birthday = this.Gender = this.Location = this.BillingInformation = this.DirectoryServer = this.Mileage = this.Occupation = this.Hobby = this.Sensitivity = this.Priority = this.Subject = this.Notes = this.GroupMembership = this.Email1Type = this.Email1Value = this.Email2Type = this.Email2Value = this.IM1Type = this.IM1Service = this.IM1Value = this.Phone1Type = this.Phone1Value = this.Phone2Type = this.Phone2Value = this.Phone3Type = this.Phone3Value = this.Address1Type = this.Address1Formatted = this.Address1Street = this.Address1City = this.Address1POBox = this.Address1Region = this.Address1PostalCode = this.Address1Country = this.Address1ExtendedAddress = this.Organization1Type = this.Organization1Name = this.Organization1YomiName = this.Organization1Title = this.Organization1Department = this.Organization1Symbol = this.Organization1Location = this.Organization1JobDescription = this.Website1Type = this.Website1Value = "";
             }
 
+            public outputLine(string headerString)
+            {
+                this.Name = "Name";
+                this.GivenName = "Given Name";
+                this.AdditionalName = "Additional Name";
+                this.FamilyName = "Family Name";
+                this.YomiName = "Yomi Name";
+                this.GivenNameYomi = "Given Name Yomi";
+                this.AdditionalNameYomi = "Additional Name Yomi";
+                this.FamilyNameYomi = "Family Name Yomi";
+                this.NamePrefix = "Name Prefix";
+                this.NameSuffix = "Name Suffix";
+                this.Initials = "Initials";
+                this.Nickname = "Nickname";
+                this.ShortName = "Short Name";
+                this.MaidenName = "Maiden Name";
+                this.Birthday = "Birthday";
+                this.Gender = "Gender";
+                this.Location = "Location";
+                this.BillingInformation = "Billing Information";
+                this.DirectoryServer = "Directory Server";
+                this.Mileage = "Mileage";
+                this.Occupation = "Occupation";
+                this.Hobby = "Hobby";
+                this.Sensitivity = "Sensitivity";
+                this.Priority = "Priority";
+                this.Subject = "Subject";
+                this.Notes = "Notes";
+                this.Email1Type = "E-mail 1 - Type";
+                this.Email1Value = "E-mail 1 - Value";
+                this.Phone1Type = "Phone 1 - Type";
+                this.Phone1Value = "Phone 1 - Value";
+                this.Address1Type = "Address 1 - Type";
+                this.Address1Formatted = "Address 1 - Formatted";
+                this.Address1Street = "Address 1 - Street";
+                this.Address1City = "Address 1 - City";
+                this.Address1POBox = "Address 1 - PO Box";
+                this.Address1Region = "Address 1 - Region";
+                this.Address1PostalCode = "Address 1 - Postal Code";
+                this.Address1Country = "Address 1 - Country";
+                this.Address1ExtendedAddress = "Address 1 - Extended Address";
+                this.GroupMembership = "Group Membership";
+            }
+
             public override string ToString()
             {
                 return this.Name + "\t" + this.GivenName + "\t" + this.AdditionalName + "\t" + this.FamilyName + "\t" + this.YomiName + "\t" + this.GivenNameYomi + "\t" + this.AdditionalNameYomi + "\t" + this.FamilyNameYomi + "\t" + this.NamePrefix + "\t" + this.NameSuffix + "\t" + this.Initials + "\t" + this.Nickname + "\t" + this.ShortName + "\t" + this.MaidenName + "\t" + this.Birthday + "\t" + this.Gender + "\t" + this.Location + "\t" + this.BillingInformation + "\t" + this.DirectoryServer + "\t" + this.Mileage + "\t" + this.Occupation + "\t" + this.Hobby + "\t" + this.Sensitivity + "\t" + this.Priority + "\t" + this.Subject + "\t" + this.Notes + "\t" + this.GroupMembership + "\t" + this.Email1Type + "\t" + this.Email1Value + "\t" + this.Email2Type + "\t" + this.Email2Value + "\t" + this.IM1Type + "\t" + this.IM1Service + "\t" + this.IM1Value + "\t" + this.Phone1Type + "\t" + this.Phone1Value + "\t" + this.Phone2Type + "\t" + this.Phone2Value + "\t" + this.Phone3Type + "\t" + this.Phone3Value + "\t" + this.Address1Type + "\t" + this.Address1Formatted + "\t" + this.Address1Street + "\t" + this.Address1City + "\t" + this.Address1POBox + "\t" + this.Address1Region + "\t" + this.Address1PostalCode + "\t" + this.Address1Country + "\t" + this.Address1ExtendedAddress + "\t" + this.Organization1Type + "\t" + this.Organization1Name + "\t" + this.Organization1YomiName + "\t" + this.Organization1Title + "\t" + this.Organization1Department + "\t" + this.Organization1Symbol + "\t" + this.Organization1Location + "\t" + this.Organization1JobDescription + "\t" + this.Website1Type + "\t" + this.Website1Value;
@@ -390,6 +436,7 @@ namespace ContactFormatFixer
             //}
 
             List<outputLine> outList = new List<outputLine>();
+            outList.Add(new outputLine("1337HAX_HEADER_PLZ"));
             foreach (inputLine lineItem in listItems)
             {
                 outList.Add(lineItem.toOutputLine());
