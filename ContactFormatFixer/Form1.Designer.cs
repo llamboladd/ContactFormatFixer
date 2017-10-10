@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,6 +39,9 @@
             this.btnFix = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.btnHelp = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -124,11 +128,28 @@
             this.saveFileDialog1.Filter = "csv file|*.csv|CSV file|*.CSV";
             this.saveFileDialog1.Title = "Pick a folder to leave the fixed file in...";
             // 
+            // btnHelp
+            // 
+            this.btnHelp.Location = new System.Drawing.Point(527, 113);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(25, 25);
+            this.btnHelp.TabIndex = 7;
+            this.btnHelp.Text = "?";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            this.btnHelp.MouseLeave += new System.EventHandler(this.btnHelp_MouseLeave);
+            this.btnHelp.MouseHover += new System.EventHandler(this.btnHelp_MouseHover);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(560, 146);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnFix);
             this.Controls.Add(this.btnPickNewFolder);
             this.Controls.Add(this.btnPickOriginalFile);
@@ -160,6 +181,9 @@
         private System.Windows.Forms.Button btnFix;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         public System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        public System.Windows.Forms.HelpProvider helpProvider1;
+        private System.Windows.Forms.Button btnHelp;
+        public System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
